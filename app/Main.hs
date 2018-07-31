@@ -1,6 +1,13 @@
 module Main where
 
-import Lib
+import Data.List
+import System.Random
+
+
+buildGrid :: Int -> [[Int]]
+buildGrid size = [[ randomRIO (0, 100 :: Int) |x<-[1..size]] | x<-[1..size]]
+
 
 main :: IO ()
-main = someFunc
+main = do
+  putStr . show =<< buildGrid 5
