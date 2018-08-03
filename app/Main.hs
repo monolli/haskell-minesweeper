@@ -2,18 +2,18 @@ module Main where
 
 import Data.List
 import System.Random
+import System.IO.Unsafe
 
 
-randomMines :: IO Int
-randomMines = getStdRandom (randomR (1,10))
+randomMines :: Int
+randomMines = unsafePerformIO $ getStdRandom (randomR (1,10))
 
-buildGrid :: Int -> [[IO Int]]
+buildGrid :: Int -> [[Int]]
 buildGrid size =
   do
-    m <- randomMines
-    [[if m < 3 then 1 else 0 |x<-[1..size]] | x<-[1..size]]
+    [[if randomMines < 3 then 1 else 0 |x<-[1..size]] | x<-[1..size]]
 
 
 main :: IO ()
 main = do
-  putStr . show =<< head(head (buildGrid 5))
+  print $ buildGrid 5
