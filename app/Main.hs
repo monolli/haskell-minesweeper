@@ -4,10 +4,16 @@ import Data.List
 import System.Random
 
 
-buildGrid :: Int -> [[Int]]
-buildGrid size = [[ randomRIO (0, 100 :: Int) |x<-[1..size]] | x<-[1..size]]
+randomMines :: IO Int
+randomMines = getStdRandom (randomR (1,10))
+
+buildGrid :: Int -> [[IO Int]]
+buildGrid size =
+  do
+    m <- randomMines
+    [[if m < 3 then 1 else 0 |x<-[1..size]] | x<-[1..size]]
 
 
 main :: IO ()
 main = do
-  putStr . show =<< buildGrid 5
+  putStr . show =<< head(head (buildGrid 5))
