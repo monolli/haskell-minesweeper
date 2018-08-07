@@ -2,11 +2,8 @@ module Main where
 
 import Data.List
 import System.Random
-import System.IO.Unsafe
 
 
-randomMines :: Int
-randomMines = unsafePerformIO $ getStdRandom (randomR (1,10))
 
 randomList :: RandomGen g => Int -> g -> [Int]
 randomList 0 _ = []
@@ -24,4 +21,3 @@ main :: IO ()
 main = do
   seed <- newStdGen
   print $ buildGrid 3 seed
---  print $ randomList
