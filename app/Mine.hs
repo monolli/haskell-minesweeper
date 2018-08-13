@@ -1,9 +1,9 @@
 module Mine where
 
 
-import Data.Matrix	-- Precisar instalar o 'cabal install matrix'
-import Data.List	
-import System.Random    -- Precisar instalar o 'cabal install random'
+import Data.Matrix
+import Data.List
+import System.Random
 
 type Pos = (Int, Int) -- tupla de inteiros para posição
 
@@ -24,6 +24,6 @@ setMines s ps = matrix s s (\a -> a `elem` ps)
 genNumbers :: Int -> [Pos] -> Matrix Int
 genNumbers s ps = matrix s s (gen ps)
                   where gen ps (a,b) = length $ filter (flip elem ps) $ neighbors (a,b)
-                   neighbors (i,j) = [ (i-1,j-1) ,  (i,j-1) , (i+1,j-1)
-                                      , (i-1,j) ,   (i,j  ) , (i+1,j  )
-                                      , (i-1,j+1) , (i,j+1) , (i+1,j+1) ]
+                        neighbors (i,j) = [ (i-1,j-1) ,  (i,j-1) , (i+1,j-1)
+                                          , (i-1,j) ,   (i,j  ) , (i+1,j  )
+                                          , (i-1,j+1) , (i,j+1) , (i+1,j+1) ]
