@@ -74,7 +74,9 @@ pixelsToIndexes t (x,y)
     | (abs x) > lmax || (abs y) > lmax                                = Nothing
     | (x' `mod` c') < b' `div` 2 || (x' `mod` c') > (b' `div` 2) + c' = Nothing
     | (y' `mod` c') < b' `div` 2 || (y' `mod` c') > (b' `div` 2) + c' = Nothing
+    {-retorna 'nada' se o pixel não estiver dentro de um espaço válido para casas do tabuleiro-}
     | otherwise = return $ (1 + y' `div` c' , 1 + x' `div` c')
+    {-caso contrário, acha e retorna a respectiva casa do tabuleiro em que o pixel de encontra-}
         where (c,b)   = sizeTile
               lmax    = c * (fromIntegral t) / 2
               (c',b') = (round c, round b)
