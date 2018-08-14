@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.28.2.
+cabal-version: >= 1.10
+
+-- This file has been generated from package.yaml by hpack version 0.29.5.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6e77fe54d30c19ec54195f564b2fc3a0a0f4355aac99f2f261df7552a22eb826
+-- hash: d3cdc319801f881eea5c142a22c2d2bd5831d10b8718da804b11ce60412f1a67
 
 name:           haskell-minesweeper
 version:        0.1.0.0
@@ -15,7 +17,6 @@ copyright:      2018 Lucas Monteiro de Oliveira
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
 extra-source-files:
     ChangeLog.md
     README.md
@@ -45,7 +46,6 @@ library
 executable haskell-minesweeper-exe
   main-is: Main.hs
   other-modules:
-      Mine
       Paths_haskell_minesweeper
   hs-source-dirs:
       app

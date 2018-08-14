@@ -8,14 +8,14 @@ import Data.Matrix
 import Data.List
 import System.Random
 
--- estado do campo minado - campo = Grid
+-- estado geral do minesweeper
 type Grid = Matrix Tile
 
 -- informações sobre a casa (Tile)
 type Tile = ( State, Bool, Int )
 -- se está marcada ou não -- se há bomba ou não -- a pontuação da casa
 
--- estado de um casa do campo
+-- estado de um tile do grid
 data State = Flag | Covered | Uncovered
            deriving (Eq)
 -- casa foi sinalizada com possível bomba  -- casa ainda coberta   -- casa descoberta
@@ -55,6 +55,7 @@ genNumbers size ps = matrix size size (gen ps)
                           , (i-1 ,j)   ,  (i ,j  ) , (i+1 ,j  )
                           , (i-1 ,j+1) ,  (i ,j+1) , (i+1 ,j+1) ]
 
+{-A função genNumbers produz os números ou pontos da malha, tendo em vista o tamanho da malha s e as posições das minas ps -}
 -- Descobrir o mapa após uma jogada
 discoverGrid :: Grid -> Pos -> Grid
 discoverGrid c (i,j) = seedFill (i,j) evaluate discover stop c
@@ -92,11 +93,6 @@ setTile m (i,j) = let (s,b,p) = getElem i j m in
 discoverAll :: Grid -> Grid
 discoverAll grid = matrix (nrows grid) (ncols grid) func
   where func (i,j) = (\(_,m,n) -> (Uncovered,m,n)) (getElem i j grid)
-
--- Ação no mapa
---actionGrid :: Grid -> (Pos, State) -> Grid
---actionGrid m ((i,j),Flag) = setTile    m (i,j)
---actionGrid m ((i,j),_)       = discoverGrid m (i,j)
 
 -- Verifica se o jogo continua ou é interrompido
 gameContinue :: Grid -> GameStatus
