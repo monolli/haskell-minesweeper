@@ -54,6 +54,9 @@ genNumbers size ps = matrix size size (gen ps)
         neighbors (i,j) = [ (i-1 ,j-1) ,  (i ,j-1) , (i+1 ,j-1)
                           , (i-1 ,j)   ,  (i ,j  ) , (i+1 ,j  )
                           , (i-1 ,j+1) ,  (i ,j+1) , (i+1 ,j+1) ]
+{-flip elem pega o elemento ps (mina) e verifica se ele está presente na lista neighbors (a,b), que são os elementos vizinhos da
+ casa analisada. Caso sejam encontradas minas, elas são filtradas da lista pela função filter e contadas pela função length, 
+ obtendo-se o número de minas nas casas vizinhas-}
 
 {-A função genNumbers produz os números ou pontos da malha, tendo em vista o tamanho da malha s e as posições das minas ps -}
 -- Descobrir o mapa após uma jogada
