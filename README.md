@@ -4,7 +4,7 @@
 ## Funções e lógica do jogo
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;Antes de entrarmos efetivamente no uso da biblioteca Gloss, precisamos primeiro estabelecer as funções básicas do jogo, assim como sua dinâmica. Faremos toda essa lógica no arquivo functions.hs. Assim, criaremos as funções básicas que ditarão o funcionamento do jogo. A ideia desse bloco não é explicar linha a linha, mas sim mostrar o funcionamento de cada função e sua importância no contexto geral do jogo. Ao definirmos as funções básicas do Gloss na próxima etapa, procuraremos explicar com um maior nível de detalhamento.
+&ensp;Antes de entrarmos efetivamente no uso da biblioteca Gloss, precisamos primeiro estabelecer as funções básicas do jogo, assim como sua dinâmica. Faremos toda essa lógica no arquivo functions.hs. Assim, criaremos as funções básicas que ditarão o funcionamento do jogo. A ideia desse bloco não é explicar linha a linha, mas sim mostrar o funcionamento de cada função e sua importância no contexto geral do jogo. Ao definirmos as funções básicas do Gloss na próxima etapa, procuraremos explicar com um maior nível de detalhamento.
 
 
 ### Functions.hs
