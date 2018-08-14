@@ -59,7 +59,7 @@ genGrid seed n size = elementwise2 (,,) (matrix size size (const Covered)) mines
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma vez implementadas as funções responsáveis pelo backend do jogo, pode-se começar a construir a parte gráfica. Entretanto, antes de começar a juntar as peças, é necessário definir algumas funções que serão úteis nos próximos passos.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma vez que estaremos trabalhando com uma exibição em tela, precisamos criar uma função para defenir os pixels que corresponderão às posições do tabuleiro. Para isso, calcula-se o centro do tabuleiro, que é representado por "x0" e "y0", bem como a distância relativa ao centro, "xf" e "yf", em que a célula deve ser posicionada na imagem do tabueiro.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma vez que será necessário exibir imagens em tela, é útil criar uma função para definir os pixels que servirão de base para imprimir as células do tabuleiro. Para isso, calcula-se o centro do tabuleiro, que é representado por "x0" e "y0", bem como a distância relativa ao centro, "xf" e "yf", onde a célula deve ser posicionada na imagem do tabueiro.
 
 ```sh
 indexesToPixels :: Float -> Float -> (Int, Int) -> (Float, Float)
@@ -70,11 +70,11 @@ indexesToPixels window tile (i,j) = (x0 + xf, y0 + yf)
         yf = -(fromIntegral i) * tile + (tile / 2)
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em seguida, podemos começar a definir os comportamentos que serão esperados do jogo. Para isto vamos desenvolver uma função que a partir das estruturas já criadas, estabelece os parâmetros que serão utilizados na exibição do jogo. Logo, dependendo da situação, a posição do tabuleiro deve ser exibida de uma maneira diferente, ou seja, o estado do jogo deve mudar.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em seguida, pode-se começar a definir os comportamentos que serão esperados do jogo. Para isto se faz necessário desenvolver uma função que, a partir das estruturas já criadas, estabelece os parâmetros que serão utilizados na exibição do jogo. Logo, dependendo da situação, a posição do tabuleiro deve ser exibida de uma maneira diferente, ou seja, o estado do jogo deve mudar.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Como a saída da função será uma Picture, ou seja, objeto definido na biblioteca gloss que permite criar impressões em tela, alguns ajustes empíricos precisaram ser realizados nos parâmetros de exibição para que tudo ficasse alinhado.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Como a saída da função será uma "Picture", ou seja, objeto definido na biblioteca Gloss que permite criar impressões em tela, alguns ajustes determinados empíricamente precisaram ser realizados nos parâmetros de exibição, "transP" e "e", para que tudo fique alinhado.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feito isto, caso a posição em questão tenha uma "Flag", foi definido que a mesma será preenchida em azul, caso contrário, se a posição ainda estiver oculta, a mesma será preenchida em cinza, caso contrário, a posição está revelada e a quantidade de minas na vizinhança deve ser exibida. Ainda no úlltimo cenário, deve-se levar em consideração os casos em revelar a posição ocasionou em uma vitória ou em ua derrota.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feito isto, pode-se inciar a definição das características gráficas de cada estado. Caso a posição em questão contenha uma "Flag", foi definido que a mesma será preenchida em azul, caso contrário, se a posição ainda estiver oculta, a mesma será preenchida em cinza, caso contrário, a posição está revelada e a quantidade de minas na vizinhança deve ser exibida. Ainda no úlltimo cenário, deve-se levar em consideração os casos em que revelar a posição acarreta em uma vitória ou em uma derrota.
 
 ```sh
 tiletoGlossTile :: Int -> GameStatus -> Tile -> (Int,Int) -> Picture
@@ -95,7 +95,7 @@ tiletoGlossTile t g (s,b,p) (i,j) =
                                         else pictures [ transP pos $ scale e e $ text (show p), trans pos $ color (greyN 0.5) $ rectangleWire l l ]
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma vez definidos o fluxo de estados do jogo, é necessário renderizar os objetos Picture criados através da biblioteca Gloss para que os mesmo possam ser efetivamente exibidos em tela. Para isso, foi criada uma função que verifica se o jogo terminou, e com base nisso gera a Picture do jogo para que o jogador possa tomar a próxima ação, ou a Picture com o final do jogo.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma vez definido o fluxo de estados do jogo, é necessário renderizar os objetos "Picture" criados através da biblioteca Gloss para que os mesmo possam ser efetivamente exibidos em tela. Para isso, criou-se uma função que verifica se o jogo terminou, e com base nisso, gera ou a "Picture" do jogo para que o jogador possa tomar a próxima ação ou a "Picture" com o final do jogo.
 
 ```sh
 rendGrid :: Int -> Grid -> IO Picture
@@ -109,7 +109,7 @@ rendGrid t m =
 ```
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apesar de os estados do jogo já estarem definidos, para que o mesmo seja funcional ainda faz-se necessário permitir que o usuário interaja com os mesmo. Para isso, precisaremos de uma função que seja capaz de, dado um pixel, informar qual é a posição correspondente no tabuleiro.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apesar de os estados do jogo já estarem definidos, para que o mesmo seja funcional ainda faz-se necessário permitir que o usuário interaja com os mesmo. Para isso, será útil uma função que seja capaz de, dado um pixel, informar qual é a posição correspondente no tabuleiro àquele pixel.
 
 ```sh
 pixelsToIndexes :: Int -> (Float,Float) -> Maybe Pos
@@ -125,7 +125,9 @@ pixelsToIndexes t (x,y)
 ```
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Com a conversão de pixel para posição do tabuleiro pronta, faz-se possível o desenvolvimento de uma função capaz de identificar e interpretar de a interação do usuário com a imagem que está sendo exibida em tela.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Com a conversão de pixel para posição do tabuleiro pronta, faz-se possível o desenvolvimento de uma função capaz de identificar e interpretar a interação do usuário com a imagem que está sendo exibida em tela.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caso o jogo tenha atingido um estado final, não é necessário interpretar a ação do usuário detro do tabueiro. Entretanto, se o usuário, em um estado não terminal, interagir com uma célula utilizando o botão esquerdo do mouse, a mesma deve ter o seu valor revelado. Caso a interação ocorra de maneira análoga à descrita acima, mas com o botão direito do mouse, a célula deve ter o seu estado alterado para representar uma "flag", que sinaliza a existência de uma bomba naquela posição. Em última instância, se o usuário interagir com o tabuleiro através de uma evento não previsto, o estado do jogo deve permanecer o mesmo.
 
 ```sh
 getClick :: Int -> Event -> Grid -> IO Grid
