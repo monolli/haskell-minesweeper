@@ -1,4 +1,4 @@
--- MineSweeper 1.0 by
+-- MineSweeper 1.0
 -- Paradigmas de Programação
 
 module Functions where
