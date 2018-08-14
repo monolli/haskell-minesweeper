@@ -62,7 +62,7 @@ genGrid seed n size = elementwise2 (,,) (matrix size size (const Covered)) mines
 
 Uma vez implementadas as funções responsáveis pelo backend do jogo, podemos começar a construir a parte gráfica. Entretanto, antes de começar a juntar as peças, podemos definir algumas funções que serão úteis na fase seguinte.
 
-Uma vez que estaremos trabalhando com uma exibição em tela, precisamos criar uma função para defenir os pixels que corresponderão às posições dos nossos tabuleiros.
+Uma vez que estaremos trabalhando com uma exibição em tela, precisamos criar uma função para defenir os pixels que corresponderão às posições do tabuleiro. Para isso, calcula-se o centro do tabuleiro, que é representado por "x0" e "y0", bem como a distância relativa ao centro, "xf" e "yf", em que a célula deve ser posicionada na imagem do tabueiro.
 
 ```sh
 indexesToPixels :: Float -> Float -> (Int, Int) -> (Float, Float)
@@ -73,8 +73,11 @@ indexesToPixels window tile (i,j) = (x0 + xf, y0 + yf)
         yf = -(fromIntegral i) * tile + (tile / 2)
 ```
 
-Em seguida, podemos começar a definir os comportamentos que serão esperados do jogo. Para isto vamos desenvolver uma função que a partir das estruturas já criadas, define os parâmetros que serão utilizados na exibição do jogo. Logo, dependendo da situação, a posição do tabuleiro deve ser exibida de uma maneira diferente, ou seja, o estado do jogo deve mudar.
+Em seguida, podemos começar a definir os comportamentos que serão esperados do jogo. Para isto vamos desenvolver uma função que a partir das estruturas já criadas, estabelece os parâmetros que serão utilizados na exibição do jogo. Logo, dependendo da situação, a posição do tabuleiro deve ser exibida de uma maneira diferente, ou seja, o estado do jogo deve mudar.
 
+Como a saída da função será uma Picture, ou seja, objeto definido na biblioteca gloss que permite criar impressões em tela, alguns ajustes empíricos precisaram ser realizados nos parâmetros de exibição para que tudo ficasse alinhado.
+
+Feito isto, caso a posição em questão tenha uma "Flag", foi definido que a mesma será preenchida em azul, caso contrário, se a posição ainda estiver oculta, a mesma será preenchida em cinza, caso contrário, a posição está revelada e a quantidade de minas na vizinhança deve ser exibida. Ainda no úlltimo cenário, deve-se levar em consideração os casos em revelar a posição ocasionou em uma vitória ou em ua derrota.
 
 ```sh
 tiletoGlossTile :: Int -> GameStatus -> Tile -> (Int,Int) -> Picture
