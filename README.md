@@ -72,7 +72,7 @@ indexesToPixels window tile (i,j) = (x0 + xf, y0 + yf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em seguida, pode-se começar a definir os comportamentos que serão esperados do jogo. Para isto se faz necessário desenvolver uma função que, a partir das estruturas já criadas, estabelece os parâmetros que serão utilizados na exibição do jogo. Logo, dependendo da situação, a posição do tabuleiro deve ser exibida de uma maneira diferente, ou seja, o estado do jogo deve mudar.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Como a saída da função será uma "Picture", ou seja, objeto definido na biblioteca Gloss que permite criar impressões em tela, alguns ajustes determinados empíricamente precisaram ser realizados nos parâmetros de exibição, "transP" e "e", para que tudo fique alinhado.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Como a saída da função será uma "Picture", ou seja, objeto definido na biblioteca Gloss que permite criar impressões em tela, alguns ajustes determinados empiricamente precisaram ser realizados nos parâmetros de exibição, "transP" e "e", para que tudo fique alinhado.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feito isto, pode-se inciar a definição das características gráficas de cada estado. Caso a posição em questão contenha uma "Flag", foi definido que a mesma será preenchida em azul, caso contrário, se a posição ainda estiver oculta, a mesma será preenchida em cinza, caso contrário, a posição está revelada e a quantidade de minas na vizinhança deve ser exibida. Ainda no úlltimo cenário, deve-se levar em consideração os casos em que revelar a posição acarreta em uma vitória ou em uma derrota.
 
