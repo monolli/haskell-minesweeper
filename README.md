@@ -1,13 +1,49 @@
 # MineSweeper
 
+A minimalistic implementation of a Minesweeper game in Haskell.
 
-## Funções e lógica do jogo
+## Getting Started
+
+### Prerequisites
+
+You must have Haskell and Stack installed.
+
+
+### Installing
+
+Upgrade Stack and install the dependencies. You must be in the source code folder.
+
+```sh
+stack upgrade && stack setup
+```
+
+### Build the project
+
+In order to build the minimal project you should run the following command:
+
+```sh
+stack build
+```
+
+## Executing the game
+
+The game receive two inputs, the number of mines(Int) that are going to be ramdomly placed in the board, and the size of the board(Int). The size is represented by an integer "N" that is going to be interpreted as a "NxN" matrix.
+
+Ex: For a 10 by 10 board with 20 mines you should execute:
+
+```sh
+stack exec haskell-minesweeper-exe 20 10
+```
+
+## Portuguese report of the project
+
+### Funções e lógica do jogo
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Antes de entrarmos efetivamente no uso da biblioteca Gloss, precisamos primeiro estabelecer as funções básicas do jogo, assim como sua dinâmica. Faremos toda essa lógica no arquivo functions.hs. Assim, criaremos as funções básicas que ditarão o funcionamento do jogo. A ideia desse bloco não é explicar linha a linha, mas sim mostrar o funcionamento de cada função e sua importância no contexto geral do jogo. Ao definirmos as funções básicas do Gloss na próxima etapa, procuraremos explicar com um maior nível de detalhamento.
 
 
-### Functions.hs
+#### Functions.hs
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tela principal do jogo é basicamente um tabuleiro (grid) de tamanho size x size (onde size será o número de linhas e o número de colunas). Assim, se escolhermos 10, a matriz será construída com 10 linhas e 10 colunas. Para a construção sessa matriz utilizaremos a biblioteca Data.Matrix.
@@ -54,7 +90,7 @@ genGrid seed n size = elementwise2 (,,) (matrix size size (const Covered)) mines
 ```
 
 
-### Graphic_Interface.hs
+#### Graphic_Interface.hs
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma vez implementadas as funções responsáveis pelo backend do jogo, pode-se começar a construir a parte gráfica. Entretanto, antes de começar a juntar as peças, é necessário definir algumas funções que serão úteis nos próximos passos.
